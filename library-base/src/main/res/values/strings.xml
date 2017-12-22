@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">library-base</string>
+    <string name="network_disable">当前网络不可用</string>
+</resources>

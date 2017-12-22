@@ -1,0 +1,21 @@
+apply plugin: 'com.android.library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation _support.appcompat
+    implementation _support.constraint
+    testImplementation _test.junit
+    androidTestImplementation _test.runner
+    androidTestImplementation _test.espresso
+
+    implementation _rx.rxjava
+    implementation _rx.rxandroid
+    implementation _rx.rxlifecycle
+    implementation _rx.rxlifecycleandroid
+
+    implementation _network.retrofit
+    implementation _network.persistentCookie
+    implementation _network.retrofit_logging
+    implementation _network.retrofit_converter_gson
+    implementation _network.retrofit_rx_adapter
+}

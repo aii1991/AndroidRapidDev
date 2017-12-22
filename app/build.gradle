@@ -1,0 +1,10 @@
+apply plugin: 'com.android.application'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation _support.appcompat
+    implementation _support.constraint
+    testImplementation _test.junit
+    androidTestImplementation _test.runner
+    androidTestImplementation _test.espresso
+}

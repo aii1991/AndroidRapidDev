@@ -1,0 +1,109 @@
+package com.boildcoffee.base.network;
+
+
+import com.boildcoffee.base.BaseApplication;
+import com.boildcoffee.base.BaseConfig;
+import com.boildcoffee.base.BuildConfig;
+import com.boildcoffee.base.network.interceptor.ReqAddTokenInterceptor;
+import com.boildcoffee.base.network.interceptor.RspCheckInterceptor;
+import com.boildcoffee.base.network.util.SSLUtils;
+import com.franmontiel.persistentcookiejar.ClearableCookieJar;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+
+import java.net.URI;
+import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLSession;
+
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+/**
+ * @author zjh
+ *  2016/3/1
+ */
+public class RetrofitManager {
+    private Retrofit mRetrofit;
+    private ClearableCookieJar mCookieJar;
+    private SharedPrefsCookiePersistor mPersistentCookieJar;
+    private RetrofitManager(){
+        initRetrofit();
+    }
+
+    private static class HandlerRetrofitManager {
+        private static final RetrofitManager mRetrofitManager = new RetrofitManager();
+    }
+
+
+    public static RetrofitManager getInstance(){
+        return HandlerRetrofitManager.mRetrofitManager;
+    }
+
+    /**
+     * 初始化retorfit配置
+     */
+    private void initRetrofit() {
+        HttpLoggingInterceptor LoginInterceptor = new HttpLoggingInterceptor();
+//        mCookie = new CookieJarImpl(new MemoryCookieStore());
+        mPersistentCookieJar = new SharedPrefsCookiePersistor(BaseApplication.mInstance);
+        mCookieJar = new PersistentCookieJar(new SetCookieCache(),mPersistentCookieJar);
+        LoginInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+
+        builder.addInterceptor(new RspCheckInterceptor());
+        if (BuildConfig.DEBUG){
+            builder.addInterceptor(LoginInterceptor);
+        }
+
+        builder.addInterceptor(new ReqAddTokenInterceptor());
+
+        builder.connectTimeout(BaseConfig.CONNECT_TIMEOUT, TimeUnit.SECONDS);
+        builder.readTimeout(BaseConfig.READ_TIMEOUT, TimeUnit.SECONDS);
+        builder.writeTimeout(BaseConfig.WRITE_TIMEOUT, TimeUnit.SECONDS);
+        builder.retryOnConnectionFailure(true);
+        builder.cookieJar(mCookieJar); //cookie配置
+        builder.hostnameVerifier(new HostnameVerifier() {
+            @Override
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        });
+
+        SSLUtils.SSLParams sslParams = SSLUtils.getSslSocketFactory(null, null, null);//SSL配置
+        builder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
+        OkHttpClient client = builder.build();
+        mRetrofit = new Retrofit.Builder()
+                .baseUrl(BaseConfig.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(client)
+                .build();
+    }
+
+    public void reLoad(){
+        initRetrofit();
+    }
+
+    public <T> T createReq(Class<T> reqServer){
+        return mRetrofit.create(reqServer);
+    }
+
+    public void removeCookie() {
+        mCookieJar.clear();
+    }
+
+    /**
+     * 持久化cookie
+     */
+    public void persistentCookie(){
+        mPersistentCookieJar.saveAll(mCookieJar.loadForRequest(HttpUrl.get(URI.create(BaseConfig.BASE_URL))));
+    }
+
+}

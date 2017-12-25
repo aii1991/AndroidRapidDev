@@ -7,4 +7,5 @@ dependencies {
     testImplementation _test.junit
     androidTestImplementation _test.runner
     androidTestImplementation _test.espresso
+    implementation project(':library-base')
 }

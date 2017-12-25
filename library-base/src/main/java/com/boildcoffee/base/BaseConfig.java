@@ -5,7 +5,7 @@ package com.boildcoffee.base;
  *         2017/12/22
  */
 
-public class BaseConfig {
+final public class BaseConfig {
     public static final boolean DEBUG = BuildConfig.DEBUG;
     public static final int PAGE_SIZE = 15; //分页大小
 
@@ -17,9 +17,8 @@ public class BaseConfig {
     public static final int WRITE_TIMEOUT = 60; //网络写超时时间(以秒为单位)
 
     //glide
-    public static final int DISK_CACHE_SIZE = 100 * 1024 * 1024; //图片磁盘缓存大小
-    public static final int MEMORY_CACHE_SIZE = 5 * 1024 * 1024; //图片内存缓存大小
-    public static final String DISK_CACHE_NAME = "CACHE_IMG"; //图片缓存目录
+    public static final int IMG_CACHE_SIZE = 100 * 1024 * 1024; //图片磁盘缓存大小
+    public static final String IMG_CACHE_NAME = "CACHE_IMG"; //图片缓存目录
 
     static String getBaseUrl(){
         String baseUrl;

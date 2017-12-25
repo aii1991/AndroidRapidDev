@@ -1,6 +1,10 @@
 package com.boildcoffee.base.network.interceptor;
 
 
+import android.content.SharedPreferences;
+
+import com.boildcoffee.base.BaseApplication;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -12,7 +16,7 @@ import okhttp3.Response;
  *  2016/9/13
  */
 public class ReqAddTokenInterceptor implements Interceptor {
-    private String token = "74029c766b33497fb0f6ec393e033704";
+    private static String token = getToken();
 
     @Override
     public Response intercept(Chain chain) throws IOException {
@@ -21,7 +25,19 @@ public class ReqAddTokenInterceptor implements Interceptor {
                 .header("token", token)
                 .method(original.method(), original.body())
                 .build();
+
         return chain.proceed(request);
     }
 
+    public static void setToken(String token){
+        ReqAddTokenInterceptor.token = token;
+        BaseApplication.mInstance.mPreferences.put("token",token);
+    }
+
+    private static String getToken(){
+        return BaseApplication
+                .mInstance
+                .mPreferences
+                .getString("token","");
+    }
 }

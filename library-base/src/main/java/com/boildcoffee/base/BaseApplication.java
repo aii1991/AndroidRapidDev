@@ -3,6 +3,13 @@ package com.boildcoffee.base;
 import android.app.Activity;
 import android.app.Application;
 
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
+import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
+
+import net.grandcentrix.tray.AppPreferences;
+
 import java.util.Stack;
 
 /**
@@ -12,12 +19,27 @@ import java.util.Stack;
 
 public class BaseApplication extends Application{
     public static BaseApplication mInstance;
-    protected Stack<Activity> activityStack = new Stack<Activity>();
+    protected Stack<Activity> activityStack = new Stack<>();
+    public AppPreferences mPreferences;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+        mPreferences = new AppPreferences(this);
+        initLogger();
+    }
+
+    private void initLogger() {
+        FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
+                .tag("boiledCoffee")
+                .build();
+        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy){
+            @Override
+            public boolean isLoggable(int priority, String tag) {
+                return BaseConfig.DEBUG;
+            }
+        });
     }
 
     /**

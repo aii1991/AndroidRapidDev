@@ -29,7 +29,7 @@ project.ext{
             rxjava: "io.reactivex.rxjava2:rxjava:2.1.7",
             rxandroid: "io.reactivex.rxjava2:rxandroid:2.0.1",
             rxlifecycle: "com.trello.rxlifecycle2:rxlifecycle:2.2.1",
-            rxlifecycleandroid: "com.trello.rxlifecycle2:rxlifecycle-android:2.2.1"
+            rxlifecycleandroid: "com.trello.rxlifecycle2:rxlifecycle-android:2.2.1",
     ]
 
     _network = [
@@ -38,6 +38,20 @@ project.ext{
             retrofit_converter_gson:"com.squareup.retrofit2:converter-gson:2.1.0",
             retrofit_rx_adapter:"com.squareup.retrofit2:adapter-rxjava2:2.2.0",
             persistentCookie:"com.github.franmontiel:PersistentCookieJar:v1.0.1"
+    ]
+
+    _imgloader = [
+            glide: "com.github.bumptech.glide:glide:4.4.0",
+            glide_annotationProcessor: "com.github.bumptech.glide:compiler:4.4.0",
+            glide_okhttp_integration: "com.github.bumptech.glide:okhttp3-integration:4.4.0"
+    ]
+
+    _common = [
+            //SharedPreferences
+            tray:"net.grandcentrix.tray:tray:0.12.0",
+            databind_mvvmlight:"com.kelin.mvvmlight:library:1.0.0",
+            rv_baseQuickAdapter:"com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34",
+            logger:"com.orhanobut:logger:2.1.1"
     ]
 
 }

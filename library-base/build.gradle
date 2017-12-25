@@ -18,4 +18,17 @@ dependencies {
     implementation _network.retrofit_logging
     implementation _network.retrofit_converter_gson
     implementation _network.retrofit_rx_adapter
+
+    implementation (_imgloader.glide){
+        exclude group: "com.android.support"
+    }
+    annotationProcessor  _imgloader.glide_annotationProcessor
+    implementation (_imgloader.glide_okhttp_integration){
+        exclude group: "com.android.support"
+    }
+
+    implementation _common.tray
+    implementation _common.databind_mvvmlight
+    implementation _common.rv_baseQuickAdapter
+    implementation _common.logger
 }

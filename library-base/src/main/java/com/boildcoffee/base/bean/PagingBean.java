@@ -13,7 +13,7 @@ import java.util.List;
 
 public class PagingBean<T> {
     private ObservableBoolean isRefreshing = new ObservableBoolean(true);
-    private ObservableBoolean isNoData = new ObservableBoolean(false); //是否沒有数据可以加载了
+    private ObservableBoolean isNoData = new ObservableBoolean(false);
     private ObservableBoolean isLoadComplete = new ObservableBoolean(false);
     private ObservableBoolean isLoadFail = new ObservableBoolean(false);
     private ObservableList<T> mData = new ObservableArrayList<>();

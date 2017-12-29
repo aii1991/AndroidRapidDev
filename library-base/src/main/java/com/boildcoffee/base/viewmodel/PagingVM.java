@@ -3,7 +3,6 @@ package com.boildcoffee.base.viewmodel;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.boildcoffee.base.BaseConfig;
-import com.boildcoffee.base.adapter.DataBindAdapter;
 import com.boildcoffee.base.bean.PagingBean;
 import com.boildcoffee.base.network.exception.HttpException;
 import com.boildcoffee.base.network.rx.HttpErrConsumer;
@@ -22,8 +21,8 @@ public abstract class PagingVM<T> implements BaseQuickAdapter.RequestLoadMoreLis
     private static final int START_PAGE = 1;
     private static final int PAGE_SIZE = BaseConfig.PAGE_SIZE;
     private int currentPage = START_PAGE;
-    private int lastPage; //是否最后一页
-    private IPagingService<T> mDataService; //数据仓库
+    private int lastPage;
+    private IPagingService<T> mDataService;
     private PagingBean<T> mPagingBean = new PagingBean<>();
 
 
@@ -34,9 +33,6 @@ public abstract class PagingVM<T> implements BaseQuickAdapter.RequestLoadMoreLis
         startLoadData();
     }
 
-    /**
-     * 开始加载数据
-     */
     private void startLoadData() {
         mPagingBean.setIsRefreshing(true);
         mDataService.getData(currentPage, PAGE_SIZE,
@@ -57,7 +53,7 @@ public abstract class PagingVM<T> implements BaseQuickAdapter.RequestLoadMoreLis
 
 
     @Override
-    public void onLoadMoreRequested() {
+    final public void onLoadMoreRequested() {
         lastPage = currentPage;
         currentPage++;
         mPagingBean.setIsLoadFail(false);
@@ -81,7 +77,7 @@ public abstract class PagingVM<T> implements BaseQuickAdapter.RequestLoadMoreLis
     }
 
     @Override
-    public void onRefresh() {
+    final public void onRefresh() {
         lastPage = currentPage;
         currentPage = START_PAGE;
         mPagingBean.setIsRefreshing(true);
@@ -110,7 +106,7 @@ public abstract class PagingVM<T> implements BaseQuickAdapter.RequestLoadMoreLis
         return false;
     }
 
-    public PagingBean<T> getPagingBean() {
+    final public PagingBean<T> getPagingBean() {
         return mPagingBean;
     }
 

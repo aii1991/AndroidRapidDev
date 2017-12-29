@@ -27,23 +27,15 @@ public class TransformerHelper {
     }
 
     public static <T> ObservableTransformer<T,T> observableToMainThreadTransformer(final ProgressDialog pd){
-        return new ObservableTransformer<T,T>() {
-            @Override
-            public ObservableSource<T> apply(Observable<T> upstream) {
-                return upstream
-                        .subscribeOn(Schedulers.io())
-                        .doOnSubscribe(new Consumer<Disposable>() {
-                            @Override
-                            public void accept(@NonNull Disposable disposable) throws Exception {
-                                if (NetworkUtils.isNetworkConnected(BaseApplication.mInstance)){
-                                    if(pd != null && !pd.isShowing()){
-                                        pd.show();
-                                    }
-                                }
-                            }
-                        })
-                        .observeOn(AndroidSchedulers.mainThread());
-            }
-        };
+        return upstream -> upstream
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(disposable -> {
+                    if (NetworkUtils.isNetworkConnected(BaseApplication.mInstance)){
+                        if(pd != null && !pd.isShowing()){
+                            pd.show();
+                        }
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }

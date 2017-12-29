@@ -27,20 +27,24 @@ task clean(type: Delete) {
 }
 
 subprojects{
+    print(it.name)
     def isAppModule = it.name.equals('app')
-    def enableDataBinding = isAppModule || it.name.equals('databinding')
+    def enableDataBinding = isAppModule || it.name.equals('databinding') || it.name.equals("library-base")
     apply plugin: isAppModule? 'com.android.application': 'com.android.library'
 
     android {
         compileSdkVersion _app.compileSdkVersion as Integer
         defaultConfig {
-            if(isAppModule)
+            if(isAppModule){
                 applicationId "com.boildcoffee.rapiddev"
+                multiDexEnabled true
+            }
             minSdkVersion _app.minSdkVersion as Integer
             targetSdkVersion _app.targetSdkVersion as Integer
             versionCode _app.versionCode as Integer
             versionName _app.versionCode as String
             testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
         }
         buildTypes {
             release {
@@ -58,6 +62,9 @@ subprojects{
 
         packagingOptions {
             exclude 'META-INF/rxjava.properties'
+            exclude 'android/databinding/DataBinderMapper.java'
+            exclude 'android/databinding/DataBindingComponent.java'
+            exclude 'android/databinding/DynamicUtil.java'
         }
 
         if(enableDataBinding){

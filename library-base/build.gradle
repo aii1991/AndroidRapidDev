@@ -1,19 +1,23 @@
-apply plugin: 'com.android.library'
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation _support.appcompat
-    implementation _support.constraint
-    testImplementation _test.junit
-    androidTestImplementation _test.runner
-    androidTestImplementation _test.espresso
+    api _support.recyclerview
+    api _support.design
+    api _support.cardview
+    implementation _test.junit
+    implementation _test.runner
+    implementation _test.espresso
 
-    implementation _rx.rxjava
-    implementation _rx.rxandroid
-    implementation _rx.rxlifecycle
-    implementation _rx.rxlifecycleandroid
+    api _rx.rxjava
+    api _rx.rxandroid
+    api _rx.rxlifecycle
+    api _rx.rxlifecycle_android
+    api _rx.rxlifecycle_components
+    api (_rx.rxlifecycle_components_preference){
+        exclude group: "com.android.support"
+    }
 
-    implementation _network.retrofit
+    api _network.retrofit
     implementation _network.persistentCookie
     implementation _network.retrofit_logging
     implementation _network.retrofit_converter_gson
@@ -22,13 +26,15 @@ dependencies {
     implementation (_imgloader.glide){
         exclude group: "com.android.support"
     }
-    annotationProcessor  _imgloader.glide_annotationProcessor
     implementation (_imgloader.glide_okhttp_integration){
         exclude group: "com.android.support"
     }
+    annotationProcessor  _imgloader.glide_annotationProcessor
 
-    implementation _common.tray
-    implementation _common.databind_mvvmlight
-    implementation _common.rv_baseQuickAdapter
-    implementation _common.logger
+    api _common.tray
+//    api (_common.databind_mvvmlight){
+//        exclude group: "com.android.support"
+//    }
+    api _common.rv_baseQuickAdapter
+    api _common.logger
 }

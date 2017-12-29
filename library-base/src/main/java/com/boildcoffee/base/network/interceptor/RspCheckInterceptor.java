@@ -39,20 +39,20 @@ public class RspCheckInterceptor implements Interceptor{
         ResponseBody rspBody = response.body();
         String httpBody = InterceptorUtils.getRspData(rspBody);
         if (httpCode == 200){
-            try {
-                JSONObject jsonObject = new JSONObject(httpBody);
-                statusCode = jsonObject.getInt("res");
-                if (statusCode != 1){
-                    throw new HttpException(httpCode,statusCode,jsonObject.getString("msg"));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-                throw new HttpException(httpCode,statusCode,"parase data error");
-            }catch (HttpException e){
-                throw e;
-            } catch (Exception e){
-                throw new HttpException(0,0,e.getMessage());
-            }
+//            try {
+//                JSONObject jsonObject = new JSONObject(httpBody);
+//                statusCode = jsonObject.getInt("res");
+//                if (statusCode != 1){
+//                    throw new HttpException(httpCode,statusCode,jsonObject.getString("msg"));
+//                }
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//                throw new HttpException(httpCode,statusCode,"parase data error");
+//            }catch (HttpException e){
+//                throw e;
+//            } catch (Exception e){
+//                throw new HttpException(0,0,e.getMessage());
+//            }
         }
 
         return response;

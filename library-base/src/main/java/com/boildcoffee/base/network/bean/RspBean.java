@@ -1,6 +1,8 @@
 package com.boildcoffee.base.network.bean;
 
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * @author zjh
  * 2017/3/1
@@ -8,6 +10,7 @@ package com.boildcoffee.base.network.bean;
 
 public class RspBean<T> {
     private int status;
+    @SerializedName("results")
     private T data;
     private String msg; //errorMSG;
 

@@ -1,5 +1,3 @@
-apply plugin: 'com.android.application'
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation _support.appcompat

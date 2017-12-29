@@ -1,6 +1,7 @@
 package com.boildcoffee.base.imageloader;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -30,7 +31,7 @@ public class ImageLoaderManager {
 
     RequestOptions mRequestOptions;
 
-    public synchronized ImageLoaderManager getInstance(){
+    public static synchronized ImageLoaderManager getInstance(){
         if (mInstance == null){
             mInstance = new ImageLoaderManager();
         }
@@ -45,8 +46,8 @@ public class ImageLoaderManager {
         return loadImg(GlideApp.with(fragment),url,thumbnailUrl,null).into(imageView);
     }
 
-    public ViewTarget loadImg(String url,String thumbnailUrl,ImageView imageView){
-         return loadImg(GlideApp.with(BaseApplication.mInstance),url,thumbnailUrl,null).into(imageView);
+    public ViewTarget loadImg(Context context,String url, String thumbnailUrl, ImageView imageView){
+         return loadImg(GlideApp.with(context),url,thumbnailUrl,null).into(imageView);
     }
 
     public RequestBuilder loadImg(GlideRequests glideRequests,String url,String thumbnailUrl,RequestListener requestListener){

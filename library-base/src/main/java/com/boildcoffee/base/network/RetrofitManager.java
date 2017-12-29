@@ -51,7 +51,6 @@ public class RetrofitManager {
      */
     private void initRetrofit() {
         HttpLoggingInterceptor LoginInterceptor = new HttpLoggingInterceptor();
-//        mCookie = new CookieJarImpl(new MemoryCookieStore());
         mPersistentCookieJar = new SharedPrefsCookiePersistor(BaseApplication.mInstance);
         mCookieJar = new PersistentCookieJar(new SetCookieCache(),mPersistentCookieJar);
         LoginInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -69,12 +68,7 @@ public class RetrofitManager {
         builder.writeTimeout(BaseConfig.WRITE_TIMEOUT, TimeUnit.SECONDS);
         builder.retryOnConnectionFailure(true);
         builder.cookieJar(mCookieJar); //cookie配置
-        builder.hostnameVerifier(new HostnameVerifier() {
-            @Override
-            public boolean verify(String hostname, SSLSession session) {
-                return true;
-            }
-        });
+        builder.hostnameVerifier((hostname, session) -> true);
 
         SSLUtils.SSLParams sslParams = SSLUtils.getSslSocketFactory(null, null, null);//SSL配置
         builder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);

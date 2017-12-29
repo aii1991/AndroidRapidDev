@@ -23,11 +23,9 @@ final public class BaseConfig {
     static String getBaseUrl(){
         String baseUrl;
         if (DEBUG){
-            baseUrl = "http://180.139.136.202:992/";
-//            baseUrl = "http://192.168.16.122:8080/";
-//            baseUrl = "http://192.168.16.130:991/";
+            baseUrl = "http://gank.io/";
         }else {
-            baseUrl = "http://school.gxeyun.edu.cn/";
+            baseUrl = "";
         }
         return baseUrl;
     }

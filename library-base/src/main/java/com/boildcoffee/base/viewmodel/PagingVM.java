@@ -2,6 +2,7 @@ package com.boildcoffee.base.viewmodel;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 
+import com.boildcoffee.base.BFConfig;
 import com.boildcoffee.base.BaseConfig;
 import com.boildcoffee.base.bean.PagingBean;
 import com.boildcoffee.base.network.exception.HttpException;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public abstract class PagingVM<T> implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener,IBFViewVM {
     private static final int START_PAGE = 1;
-    private static final int PAGE_SIZE = BaseConfig.PAGE_SIZE;
+    private static final int PAGE_SIZE = BFConfig.getInstance().getConfig().getPageSize();
     private int currentPage = START_PAGE;
     private int lastPage;
     private IPagingService<T> mDataService;

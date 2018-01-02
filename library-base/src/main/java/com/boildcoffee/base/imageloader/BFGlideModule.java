@@ -3,6 +3,7 @@ package com.boildcoffee.base.imageloader;
 import android.content.Context;
 import android.util.Log;
 
+import com.boildcoffee.base.BFConfig;
 import com.boildcoffee.base.BaseConfig;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.annotation.GlideModule;
@@ -18,7 +19,7 @@ import com.bumptech.glide.module.AppGlideModule;
  */
 
 @GlideModule
-public class BFGlideMoudle extends AppGlideModule{
+public class BFGlideModule extends AppGlideModule{
     @Override
     public void applyOptions(Context context, GlideBuilder builder) {
         MemorySizeCalculator calculator = new MemorySizeCalculator.Builder(context)
@@ -27,7 +28,8 @@ public class BFGlideMoudle extends AppGlideModule{
                 .build();
         builder.setMemoryCache(new LruResourceCache(calculator.getMemoryCacheSize()))
                 .setBitmapPool(new LruBitmapPool(calculator.getBitmapPoolSize()))
-                .setDiskCache(new InternalCacheDiskCacheFactory(context,BaseConfig.IMG_CACHE_NAME,BaseConfig.IMG_CACHE_SIZE))
+                .setDiskCache(new InternalCacheDiskCacheFactory(context, BFConfig.getInstance().getConfig().getImageCacheFileName()
+                        ,BFConfig.getInstance().getConfig().getImageCacheSize()))
                 .setLogLevel(Log.DEBUG);
 
     }

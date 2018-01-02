@@ -37,7 +37,7 @@ public class BaseApplication extends Application{
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy){
             @Override
             public boolean isLoggable(int priority, String tag) {
-                return BaseConfig.DEBUG;
+                return BFConfig.getInstance().getConfig().isDebug();
             }
         });
     }

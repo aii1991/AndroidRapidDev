@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
+import com.boildcoffee.base.BFConfig;
 import com.boildcoffee.base.BaseApplication;
 import com.boildcoffee.base.R;
 import com.bumptech.glide.RequestBuilder;
@@ -25,11 +26,12 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 public class ImageLoaderManager {
     private ImageLoaderManager(){}
     private static ImageLoaderManager mInstance;
-    private int mLoadingImgRes = R.mipmap.load_image_200;
-    private int mErrorImgRes = R.mipmap.load_image_failed_200;
-    private int mAvatarImgRes = R.mipmap.user_photo;
+    private int mLoadingImgRes = BFConfig.getInstance().getConfig().getLoadingImage();
+    private int mErrorImgRes = BFConfig.getInstance().getConfig().getLoadFailImage();
+//    private int mAvatarImgRes = R.mipmap.user_photo;
+    private int mAvatarImgRes = BFConfig.getInstance().getConfig().getLoadingImage();
 
-    RequestOptions mRequestOptions;
+    private RequestOptions mRequestOptions;
 
     public static synchronized ImageLoaderManager getInstance(){
         if (mInstance == null){

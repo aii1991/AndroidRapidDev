@@ -3,7 +3,6 @@ package com.boildcoffee.base.network;
 
 import com.boildcoffee.base.BFConfig;
 import com.boildcoffee.base.BaseApplication;
-import com.boildcoffee.base.BaseConfig;
 import com.boildcoffee.base.BuildConfig;
 import com.boildcoffee.base.network.interceptor.ReqAddTokenInterceptor;
 import com.boildcoffee.base.network.interceptor.RspCheckInterceptor;
@@ -15,9 +14,6 @@ import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersisto
 
 import java.net.URI;
 import java.util.concurrent.TimeUnit;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
 
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;

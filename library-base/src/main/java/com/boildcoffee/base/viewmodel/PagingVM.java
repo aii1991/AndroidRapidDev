@@ -3,7 +3,6 @@ package com.boildcoffee.base.viewmodel;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.boildcoffee.base.BFConfig;
-import com.boildcoffee.base.BaseConfig;
 import com.boildcoffee.base.bean.PagingBean;
 import com.boildcoffee.base.network.exception.HttpException;
 import com.boildcoffee.base.network.rx.HttpErrConsumer;

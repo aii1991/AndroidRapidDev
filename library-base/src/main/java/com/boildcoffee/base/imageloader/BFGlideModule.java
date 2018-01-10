@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.boildcoffee.base.BFConfig;
-import com.boildcoffee.base.BaseConfig;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.load.engine.bitmap_recycle.LruBitmapPool;

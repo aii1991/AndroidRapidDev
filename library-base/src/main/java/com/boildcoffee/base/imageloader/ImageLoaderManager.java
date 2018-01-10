@@ -9,7 +9,6 @@ import android.widget.ImageView;
 
 import com.boildcoffee.base.BFConfig;
 import com.boildcoffee.base.BaseApplication;
-import com.boildcoffee.base.R;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;

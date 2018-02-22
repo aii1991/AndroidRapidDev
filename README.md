@@ -37,7 +37,7 @@
 ## 快速实现列表
 
 ![test.gif](
-http://upload-images.jianshu.io/upload_images/2898841-5ffcc43d19bb8026.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+https://github.com/aii1991/AndroidRapidDev/blob/master/app/gif/test.gif)
 
 ```java
   public class MainVM extends PagingVM<ImageBean>{

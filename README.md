@@ -189,3 +189,5 @@ main_item.xml
 | bind:fragment            | 绑定fragment |
 | bind:loadUrl             | 设定加载图片地址 |
 | bind:preLoadThumbnail    | 设置加载图片小图地址 |
+
+`目前还在持续更新中`

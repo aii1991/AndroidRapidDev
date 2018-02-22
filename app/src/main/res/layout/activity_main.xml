@@ -24,6 +24,7 @@
                 bind:pageVM="@{mainVm}"
                 bind:itemViewId="@{@layout/main_item}"
                 bind:BRName="@{mainVm.getVariableId()}"
+                bind:onItemClickListener="@{mainVm.mItemClickListener}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

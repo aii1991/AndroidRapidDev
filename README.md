@@ -41,30 +41,31 @@ https://github.com/aii1991/AndroidRapidDev/blob/master/app/gif/test.gif)
 
 ```java
   public class MainVM extends PagingVM<ImageBean>{
-      private RxAppCompatActivity mRxActivity;
+    private RxAppCompatActivity mRxActivity;
 
-      public MainVM(RxAppCompatActivity rxActivity){
-          mRxActivity = rxActivity;
-      }
+    public MainVM(RxAppCompatActivity rxActivity){
+        mRxActivity = rxActivity;
+    }
 
+    public ReplyCommand<Integer> mItemClickListener = new ReplyCommand<>((position) -> Toast.makeText(mRxActivity,"click position => "+ position,Toast.LENGTH_LONG).show());
 
-      @Override
-      public IPagingService<ImageBean> getPagingService() {
-          return (page, pageSize, onSuccess, onError, onComplete) ->
-                  RetrofitManager //获取列表数据
-                          .getInstance()
-                          .createReq(MainRepo.class)
-                          .getListImage(page,pageSize)
-                          .compose(mRxActivity.bindToLifecycle())
-                          .compose(TransformerHelper.observableToMainThreadTransformer())
-                          .map(new TransformHttpDataFunc<>())
-                          .subscribe(onSuccess,onError,onComplete);
-      }
+    @Override
+    public IPagingService<ImageBean> getPagingService() {
+        return (page, pageSize, onSuccess, onError, onComplete) ->
+                RetrofitManager
+                        .getInstance()
+                        .createReq(MainRepo.class)
+                        .getListImage(page,pageSize)
+                        .compose(mRxActivity.bindToLifecycle())
+                        .compose(TransformerHelper.observableToMainThreadTransformer())
+                        .map(new TransformHttpDataFunc<>())
+                        .subscribe(onSuccess,onError,onComplete);
+    }
 
-      @Override
-      public int getVariableId() {
-          return BR.imageBean;
-      }
+    @Override
+    public int getVariableId() {
+        return BR.imageBean;
+    }
 
   }
 ```
@@ -116,6 +117,7 @@ activity_main.xml
                 bind:pageVM="@{mainVm}"
                 bind:itemViewId="@{@layout/main_item}"
                 bind:BRName="@{mainVm.getVariableId()}"
+                bind:onItemClickListener="@{mainVm.mItemClickListener}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -160,3 +162,30 @@ main_item.xml
     import com.orhanobut.logger.Logger;
     Logger.d("logger");
 ```
+
+## BindAdapter
+
+1. RecyclerView
+
+| 名称                     | 作用 |
+| -                        | :-:  |
+| bind:pageVM              | 绑定继承PagingVM的VM |
+| bind:layoutManager       | 设置布局管理器 |
+| bind:itemViewId          | 设置item布局文件id |
+| bind:BRName              | 绑定item中的variable |
+| bind:onItemClickListener | 设置点击事件 |
+
+1. SwipeRefreshLayout
+
+| 名称                     | 作用 |
+| -                        | :-:  |
+| bind:pageVM              | 绑定继承PagingVM的VM,主要配合RecyclerView一起使用|
+
+1. ImageView
+
+| 名称                     | 作用  |
+| -                        | :-:  |
+| bind:activity            | 绑定activity |
+| bind:fragment            | 绑定fragment |
+| bind:loadUrl             | 设定加载图片地址 |
+| bind:preLoadThumbnail    | 设置加载图片小图地址 |

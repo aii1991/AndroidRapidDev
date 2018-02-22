@@ -31,4 +31,9 @@ public class IvBindingAdapter {
             ImageLoaderManager.getInstance().loadImg(fragment,url,thumbnailUrl,v);
         }
     }
+
+    @BindingAdapter(value = {"loadAvatarUrl"})
+    public static void loadAvatar(ImageView v,String url){
+        ImageLoaderManager.getInstance().loadAvatar(url,v);
+    }
 }

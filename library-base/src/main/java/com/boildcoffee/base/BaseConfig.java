@@ -2,6 +2,10 @@ package com.boildcoffee.base;
 
 import android.support.annotation.IdRes;
 
+import com.boildcoffee.base.network.interceptor.RspCheckInterceptor;
+
+import java.io.IOException;
+
 /**
  * @author zjh
  *         2017/12/22
@@ -18,8 +22,8 @@ final public class BaseConfig {
     //glide
     private  final int IMG_CACHE_SIZE = 100 * 1024 * 1024; //图片磁盘缓存大小
     private final String IMG_CACHE_NAME = "CACHE_IMG"; //图片缓存目录
-    private final int LOADING_ERROR_IMG = R.mipmap.load_image_200;
-    private final int LOAD_FAIL_IMG = R.mipmap.load_image_failed_200;
+    private final int LOADING_ERROR_IMG = R.mipmap.load_image_200; //正在加载时显示的图片
+    private final int LOAD_FAIL_IMG = R.mipmap.load_image_failed_200; //加载失败时显示的图片
 
     private boolean mDebug = DEBUG;
     private int mPageSize = PAGE_SIZE;
@@ -31,7 +35,7 @@ final public class BaseConfig {
     private String mImageCacheFileName = IMG_CACHE_NAME;
     private int mLoadingImage = LOADING_ERROR_IMG;
     private int mLoadFailImage = LOAD_FAIL_IMG;
-
+    private RspCheckInterceptor mRspCheckInterceptor;
 
     public static class Builder{
         BaseConfig mBaseConfig;
@@ -89,6 +93,11 @@ final public class BaseConfig {
             return this;
         }
 
+        public Builder setRspCheckInterceptor(RspCheckInterceptor rspCheckInterceptor){
+            mBaseConfig.mRspCheckInterceptor = rspCheckInterceptor;
+            return this;
+        }
+
         public BaseConfig build(){
             return mBaseConfig;
         }
@@ -132,5 +141,17 @@ final public class BaseConfig {
 
     public boolean isDebug() {
         return mDebug;
+    }
+
+    public RspCheckInterceptor getRspCheckInterceptor() {
+        if (mRspCheckInterceptor == null){
+            mRspCheckInterceptor = new RspCheckInterceptor() {
+                @Override
+                protected void handleRspData(int httpCode, String httpBody) throws IOException {
+
+                }
+            };
+        }
+        return mRspCheckInterceptor;
     }
 }

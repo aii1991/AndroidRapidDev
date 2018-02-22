@@ -53,8 +53,8 @@ public class RetrofitManager {
         LoginInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
-        builder.addInterceptor(new RspCheckInterceptor());
-        if (BuildConfig.DEBUG){
+        builder.addInterceptor(BFConfig.getInstance().getConfig().getRspCheckInterceptor());
+        if (BFConfig.getInstance().getConfig().isDebug()){
             builder.addInterceptor(LoginInterceptor);
         }
 

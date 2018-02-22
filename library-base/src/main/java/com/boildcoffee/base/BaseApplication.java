@@ -32,7 +32,7 @@ public class BaseApplication extends Application{
 
     private void initLogger() {
         FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
-                .tag("boiledCoffee")
+                .tag(this.getClass().getPackage().getName())
                 .build();
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy){
             @Override
@@ -40,6 +40,7 @@ public class BaseApplication extends Application{
                 return BFConfig.getInstance().getConfig().isDebug();
             }
         });
+
     }
 
     /**

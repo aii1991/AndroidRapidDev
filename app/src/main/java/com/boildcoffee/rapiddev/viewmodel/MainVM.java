@@ -42,5 +42,4 @@ public class MainVM extends PagingVM<ImageBean>{
         return BR.imageBean;
     }
 
-
 }

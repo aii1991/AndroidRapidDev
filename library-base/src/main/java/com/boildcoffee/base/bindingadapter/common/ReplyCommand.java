@@ -7,6 +7,7 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by kelin on 15-8-4.
+ *
  */
 public class ReplyCommand<T> {
 

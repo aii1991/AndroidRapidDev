@@ -20,7 +20,7 @@ import okhttp3.ResponseBody;
  * @author zjh
  *  2016/8/31
  */
-public class RspCheckInterceptor implements Interceptor{
+public abstract class RspCheckInterceptor implements Interceptor{
 
     @Override
     public Response intercept(Chain chain) throws IOException {
@@ -35,9 +35,9 @@ public class RspCheckInterceptor implements Interceptor{
             throw new HttpException(0,0,e.getMessage());
         }
         int httpCode = response.code();
-        int statusCode = 0;
         ResponseBody rspBody = response.body();
         String httpBody = InterceptorUtils.getRspData(rspBody);
+        handleRspData(httpCode, httpBody);
         if (httpCode == 200){
 //            try {
 //                JSONObject jsonObject = new JSONObject(httpBody);
@@ -57,4 +57,6 @@ public class RspCheckInterceptor implements Interceptor{
 
         return response;
     }
+
+    protected abstract void handleRspData(int httpCode, String httpBody) throws IOException;
 }

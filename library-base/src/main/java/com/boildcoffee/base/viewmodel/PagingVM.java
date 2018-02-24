@@ -25,6 +25,9 @@ public abstract class PagingVM<T> implements BaseQuickAdapter.RequestLoadMoreLis
     private IPagingService<T> mDataService;
     private PagingBean<T> mPagingBean = new PagingBean<>();
 
+    protected PagingVM(){
+        mPagingBean.setSwlColorRes(new int[]{android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_orange_light, android.R.color.holo_green_light});
+    }
 
     public void startGetData() {
         if (mDataService == null){

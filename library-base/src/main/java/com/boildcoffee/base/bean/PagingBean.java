@@ -2,6 +2,7 @@ package com.boildcoffee.base.bean;
 
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 
 import java.util.List;
@@ -12,11 +13,12 @@ import java.util.List;
  */
 
 public class PagingBean<T> {
-    private ObservableBoolean isRefreshing = new ObservableBoolean(true);
+    private ObservableBoolean isRefreshing = new ObservableBoolean(false);
     private ObservableBoolean isNoData = new ObservableBoolean(false);
     private ObservableBoolean isLoadComplete = new ObservableBoolean(false);
     private ObservableBoolean isLoadFail = new ObservableBoolean(false);
     private ObservableList<T> mData = new ObservableArrayList<>();
+    private ObservableField<int[]> swlColorRes = new ObservableField<>();
 
     public boolean isRefreshing() {
         return isRefreshing.get();
@@ -76,5 +78,13 @@ public class PagingBean<T> {
 
     public ObservableBoolean getIsLoadFail() {
         return isLoadFail;
+    }
+
+    public void setSwlColorRes(int[] colorRes){
+        swlColorRes.set(colorRes);
+    }
+
+    public ObservableField<int[]> getSwlColorRes(){
+        return swlColorRes;
     }
 }

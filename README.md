@@ -175,13 +175,13 @@ main_item.xml
 | bind:BRName              | 绑定item中的variable |
 | bind:onItemClickListener | 设置点击事件 |
 
-1. SwipeRefreshLayout
+2. SwipeRefreshLayout
 
 | 名称                     | 作用 |
 | -                        | :-:  |
 | bind:pageVM              | 绑定继承PagingVM的VM,主要配合RecyclerView一起使用|
 
-1. ImageView
+3. ImageView
 
 | 名称                     | 作用  |
 | -                        | :-:  |

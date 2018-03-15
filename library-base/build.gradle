@@ -38,7 +38,7 @@ dependencies {
     api _common.rv_baseQuickAdapter
     api _common.logger
 
-    api _components.room
-    api _components.room_rx_feature
-    annotationProcessor _components.room_annotation_processor
+    api _room.room
+    api _room.room_rx_feature
+    annotationProcessor _room.room_annotation_processor
 }

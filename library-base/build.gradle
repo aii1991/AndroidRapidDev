@@ -32,9 +32,10 @@ dependencies {
     annotationProcessor  _imgloader.glide_annotationProcessor
 
     api _common.tray
-//    api (_common.databind_mvvmlight){
-//        exclude group: "com.android.support"
-//    }
     api _common.rv_baseQuickAdapter
     api _common.logger
+
+    api _components.room
+    api _components.room_rx_feature
+    annotationProcessor _components.room_annotation_processor
 }

@@ -3,9 +3,8 @@ package com.boildcoffee.base.network;
 
 import com.boildcoffee.base.BFConfig;
 import com.boildcoffee.base.BaseApplication;
-import com.boildcoffee.base.BuildConfig;
+import com.boildcoffee.base.network.interceptor.ReqCacheInterceptor;
 import com.boildcoffee.base.network.interceptor.ReqAddTokenInterceptor;
-import com.boildcoffee.base.network.interceptor.RspCheckInterceptor;
 import com.boildcoffee.base.network.util.SSLUtils;
 import com.franmontiel.persistentcookiejar.ClearableCookieJar;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
@@ -53,16 +52,16 @@ public class RetrofitManager {
         LoginInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
-        builder.addInterceptor(BFConfig.getInstance().getConfig().getRspCheckInterceptor());
-        if (BFConfig.getInstance().getConfig().isDebug()){
+        builder.addInterceptor(BFConfig.INSTANCE.getConfig().getRspCheckInterceptor());
+        if (BFConfig.INSTANCE.getConfig().isDebug()){
             builder.addInterceptor(LoginInterceptor);
         }
-
+        builder.addInterceptor(new ReqCacheInterceptor());
         builder.addInterceptor(new ReqAddTokenInterceptor());
 
-        builder.connectTimeout(BFConfig.getInstance().getConfig().getConnectTimeout(), TimeUnit.SECONDS);
-        builder.readTimeout(BFConfig.getInstance().getConfig().getReadTimeout(), TimeUnit.SECONDS);
-        builder.writeTimeout(BFConfig.getInstance().getConfig().getWriteTimeout(), TimeUnit.SECONDS);
+        builder.connectTimeout(BFConfig.INSTANCE.getConfig().getConnectTimeout(), TimeUnit.SECONDS);
+        builder.readTimeout(BFConfig.INSTANCE.getConfig().getReadTimeout(), TimeUnit.SECONDS);
+        builder.writeTimeout(BFConfig.INSTANCE.getConfig().getWriteTimeout(), TimeUnit.SECONDS);
         builder.retryOnConnectionFailure(true);
         builder.cookieJar(mCookieJar); //cookie配置
         builder.hostnameVerifier((hostname, session) -> true);
@@ -71,7 +70,7 @@ public class RetrofitManager {
         builder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
         OkHttpClient client = builder.build();
         mRetrofit = new Retrofit.Builder()
-                .baseUrl(BFConfig.getInstance().getConfig().getBaseUrl())
+                .baseUrl(BFConfig.INSTANCE.getConfig().getBaseUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
@@ -94,7 +93,7 @@ public class RetrofitManager {
      * 持久化cookie
      */
     public void persistentCookie(){
-        mPersistentCookieJar.saveAll(mCookieJar.loadForRequest(HttpUrl.get(URI.create(BFConfig.getInstance().getConfig().getBaseUrl()))));
+        mPersistentCookieJar.saveAll(mCookieJar.loadForRequest(HttpUrl.get(URI.create(BFConfig.INSTANCE.getConfig().getBaseUrl()))));
     }
 
 }

@@ -1,4 +1,4 @@
-package com.boildcoffee.base.bean;
+package com.boildcoffee.base.paging.bean;
 
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;

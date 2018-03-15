@@ -8,7 +8,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
-        
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -44,7 +44,7 @@ subprojects{
             versionCode _app.versionCode as Integer
             versionName _app.versionCode as String
             testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+            buildConfigField "int", "dbVersion", "1"
         }
         buildTypes {
             release {

@@ -21,6 +21,7 @@ public class BaseApplication extends Application{
     public static BaseApplication mInstance;
     protected Stack<Activity> activityStack = new Stack<>();
     public AppPreferences mPreferences;
+    private static BFDatabase appDatabase;
 
     @Override
     public void onCreate() {
@@ -37,7 +38,7 @@ public class BaseApplication extends Application{
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy){
             @Override
             public boolean isLoggable(int priority, String tag) {
-                return BFConfig.getInstance().getConfig().isDebug();
+                return BFConfig.INSTANCE.getConfig().isDebug();
             }
         });
 
@@ -85,6 +86,13 @@ public class BaseApplication extends Application{
     public void clearActivity() {
         exit();
         activityStack.clear();
+    }
+
+    public synchronized BFDatabase getAppDatabase(){
+        if (appDatabase == null){
+            return BFDatabase.create(this,false);
+        }
+        return appDatabase;
     }
 
 

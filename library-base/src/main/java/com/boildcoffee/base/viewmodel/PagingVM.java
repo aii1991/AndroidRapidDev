@@ -3,10 +3,10 @@ package com.boildcoffee.base.viewmodel;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.boildcoffee.base.BFConfig;
-import com.boildcoffee.base.bean.PagingBean;
+import com.boildcoffee.base.paging.bean.PagingBean;
 import com.boildcoffee.base.network.exception.HttpException;
 import com.boildcoffee.base.network.rx.HttpErrConsumer;
-import com.boildcoffee.base.service.IPagingService;
+import com.boildcoffee.base.paging.IPagingService;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.orhanobut.logger.Logger;
 
@@ -19,7 +19,7 @@ import java.util.List;
 
 public abstract class PagingVM<T> implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener,IBFViewVM {
     private static final int START_PAGE = 1;
-    private static final int PAGE_SIZE = BFConfig.getInstance().getConfig().getPageSize();
+    private static final int PAGE_SIZE = BFConfig.INSTANCE.getConfig().getPageSize();
     private int currentPage = START_PAGE;
     private int lastPage;
     private IPagingService<T> mDataService;
@@ -49,6 +49,7 @@ public abstract class PagingVM<T> implements BaseQuickAdapter.RequestLoadMoreLis
                     @Override
                     public void error(HttpException e) {
                         Logger.d(e.getMessage());
+                        mPagingBean.setIsRefreshing(false);
                     }
                 },
                 () -> mPagingBean.setIsRefreshing(false));
@@ -93,6 +94,7 @@ public abstract class PagingVM<T> implements BaseQuickAdapter.RequestLoadMoreLis
             @Override
             public void error(HttpException e) {
                 Logger.d(e.getMessage());
+                mPagingBean.setIsRefreshing(false);
             }
         }, () -> mPagingBean.setIsRefreshing(false));
     }

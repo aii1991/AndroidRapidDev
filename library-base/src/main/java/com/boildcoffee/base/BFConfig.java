@@ -9,8 +9,9 @@ public class BFConfig {
     private BFConfig (){}
     private static BFConfig instance;
     private BaseConfig mBaseConfig;
+    public static BFConfig INSTANCE = create();
 
-    public synchronized static BFConfig getInstance(){
+    private static BFConfig create(){
         if (instance == null){
             instance = new BFConfig();
         }
@@ -24,5 +25,4 @@ public class BFConfig {
     public BaseConfig getConfig(){
         return mBaseConfig;
     }
-
 }

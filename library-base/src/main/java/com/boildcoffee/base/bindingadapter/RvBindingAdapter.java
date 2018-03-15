@@ -41,7 +41,7 @@ public class RvBindingAdapter {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 if (((ObservableBoolean)sender).get()){
-                    dataBindAdapter.loadMoreComplete();
+                    dataBindAdapter.loadMoreFail();
                 }
             }
         });
@@ -72,11 +72,11 @@ public class RvBindingAdapter {
     }
 
 
-    public static class BFOnListChangedCallback<T> extends ObservableList.OnListChangedCallback<ObservableList<T>> {
+    private final static class BFOnListChangedCallback<T> extends ObservableList.OnListChangedCallback<ObservableList<T>> {
         DataBindAdapter<T> mDataBindAdapter;
         PagingVM<T> mPagingVM;
 
-        public BFOnListChangedCallback(DataBindAdapter<T> dataBindAdapter,PagingVM<T> pagingVM){
+        BFOnListChangedCallback(DataBindAdapter<T> dataBindAdapter,PagingVM<T> pagingVM){
             mDataBindAdapter = dataBindAdapter;
             mPagingVM = pagingVM;
         }

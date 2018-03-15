@@ -27,8 +27,8 @@ public class BFGlideModule extends AppGlideModule{
                 .build();
         builder.setMemoryCache(new LruResourceCache(calculator.getMemoryCacheSize()))
                 .setBitmapPool(new LruBitmapPool(calculator.getBitmapPoolSize()))
-                .setDiskCache(new InternalCacheDiskCacheFactory(context, BFConfig.getInstance().getConfig().getImageCacheFileName()
-                        ,BFConfig.getInstance().getConfig().getImageCacheSize()))
+                .setDiskCache(new InternalCacheDiskCacheFactory(context, BFConfig.INSTANCE.getConfig().getImageCacheFileName()
+                        ,BFConfig.INSTANCE.getConfig().getImageCacheSize()))
                 .setLogLevel(Log.DEBUG);
 
     }

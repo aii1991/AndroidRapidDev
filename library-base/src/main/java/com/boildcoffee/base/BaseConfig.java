@@ -25,17 +25,28 @@ final public class BaseConfig {
     private final int LOADING_ERROR_IMG = R.mipmap.load_image_200; //正在加载时显示的图片
     private final int LOAD_FAIL_IMG = R.mipmap.load_image_failed_200; //加载失败时显示的图片
 
-    private boolean mDebug = DEBUG;
-    private int mPageSize = PAGE_SIZE;
-    private String mBaseUrl = BASE_URL;
-    private int mConnectTimeout = CONNECT_TIMEOUT;
-    private int mReadTimeout = READ_TIMEOUT;
-    private int mWriteTimeout = WRITE_TIMEOUT;
-    private int mImageCacheSize = IMG_CACHE_SIZE;
-    private String mImageCacheFileName = IMG_CACHE_NAME;
-    private int mLoadingImage = LOADING_ERROR_IMG;
-    private int mLoadFailImage = LOAD_FAIL_IMG;
-    private RspCheckInterceptor mRspCheckInterceptor;
+    private final String DB_NAME = "bf";
+
+    //room
+    public static class CacheMode{
+        public static int NO_CACHE = 0; //不缓存
+        public static int NETWORK_ELSE_CACHE = 1; //网络数据优先
+        public static int CACHE_ELSE_NETWORK = 2; //缓存数据优先
+    }
+
+    private boolean debug = DEBUG;
+    private int pageSize = PAGE_SIZE;
+    private String baseUrl = BASE_URL;
+    private int connectTimeout = CONNECT_TIMEOUT;
+    private int readTimeout = READ_TIMEOUT;
+    private int writeTimeout = WRITE_TIMEOUT;
+    private int imageCacheSize = IMG_CACHE_SIZE;
+    private String imageCacheFileName = IMG_CACHE_NAME;
+    private int loadingImage = LOADING_ERROR_IMG;
+    private int loadFailImage = LOAD_FAIL_IMG;
+    private RspCheckInterceptor RspCheckInterceptor;
+    private int apiQueryCacheMode;
+    private String dbName = DB_NAME;
 
     public static class Builder{
         BaseConfig mBaseConfig;
@@ -44,57 +55,67 @@ final public class BaseConfig {
         }
 
         public Builder setDebug(boolean debug){
-            mBaseConfig.mDebug = debug;
+            mBaseConfig.debug = debug;
             return this;
         }
 
         public Builder setPageSize(int pageSize){
-            mBaseConfig.mPageSize = pageSize;
+            mBaseConfig.pageSize = pageSize;
             return this;
         }
 
         public Builder setBaseUrl(String baseUrl){
-            mBaseConfig.mBaseUrl = baseUrl;
+            mBaseConfig.baseUrl = baseUrl;
             return this;
         }
 
         public Builder setRetrofitConnectTimeout(int connectTimeout){
-            mBaseConfig.mConnectTimeout = connectTimeout;
+            mBaseConfig.connectTimeout = connectTimeout;
             return this;
         }
 
         public Builder setRetrofitReadTimeout(int readTimeout){
-            mBaseConfig.mReadTimeout = readTimeout;
+            mBaseConfig.readTimeout = readTimeout;
             return this;
         }
 
         public Builder setRetrofitWriteTimeout(int writeTimeout){
-            mBaseConfig.mWriteTimeout = writeTimeout;
+            mBaseConfig.writeTimeout = writeTimeout;
             return this;
         }
 
         public Builder setImageCacheSize(int imageCacheSize){
-            mBaseConfig.mImageCacheSize = imageCacheSize;
+            mBaseConfig.imageCacheSize = imageCacheSize;
             return this;
         }
 
         public Builder setImageCacheFileName(String fileName){
-            mBaseConfig.mImageCacheFileName = fileName;
+            mBaseConfig.imageCacheFileName = fileName;
             return this;
         }
 
         public Builder setLoadingImage(@IdRes int loadingImage){
-            mBaseConfig.mLoadingImage = loadingImage;
+            mBaseConfig.loadingImage = loadingImage;
             return this;
         }
 
         public Builder setLoadFailImage(@IdRes int loadFailImage){
-            mBaseConfig.mLoadFailImage = loadFailImage;
+            mBaseConfig.loadFailImage = loadFailImage;
             return this;
         }
 
         public Builder setRspCheckInterceptor(RspCheckInterceptor rspCheckInterceptor){
-            mBaseConfig.mRspCheckInterceptor = rspCheckInterceptor;
+            mBaseConfig.RspCheckInterceptor = rspCheckInterceptor;
+            return this;
+        }
+
+        public Builder setApiQueryCacheMode(int cacheMode){
+            mBaseConfig.apiQueryCacheMode = cacheMode;
+            return this;
+        }
+
+        public Builder setDbName(String dbName){
+            mBaseConfig.dbName = dbName;
             return this;
         }
 
@@ -104,54 +125,62 @@ final public class BaseConfig {
     }
 
     public int getPageSize() {
-        return mPageSize;
+        return pageSize;
     }
 
     public String getBaseUrl() {
-        return mBaseUrl;
+        return baseUrl;
     }
 
     public int getConnectTimeout() {
-        return mConnectTimeout;
+        return connectTimeout;
     }
 
     public int getReadTimeout() {
-        return mReadTimeout;
+        return readTimeout;
     }
 
     public int getWriteTimeout() {
-        return mWriteTimeout;
+        return writeTimeout;
     }
 
     public int getImageCacheSize() {
-        return mImageCacheSize;
+        return imageCacheSize;
     }
 
     public String getImageCacheFileName() {
-        return mImageCacheFileName;
+        return imageCacheFileName;
     }
 
     public int getLoadingImage() {
-        return mLoadingImage;
+        return loadingImage;
     }
 
     public int getLoadFailImage() {
-        return mLoadFailImage;
+        return loadFailImage;
     }
 
     public boolean isDebug() {
-        return mDebug;
+        return debug;
     }
 
     public RspCheckInterceptor getRspCheckInterceptor() {
-        if (mRspCheckInterceptor == null){
-            mRspCheckInterceptor = new RspCheckInterceptor() {
+        if (RspCheckInterceptor == null){
+            RspCheckInterceptor = new RspCheckInterceptor() {
                 @Override
                 protected void handleRspData(int httpCode, String httpBody) throws IOException {
 
                 }
             };
         }
-        return mRspCheckInterceptor;
+        return RspCheckInterceptor;
+    }
+
+    public int getApiQueryCacheMode() {
+        return apiQueryCacheMode;
+    }
+
+    public String getDbName() {
+        return dbName;
     }
 }

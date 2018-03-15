@@ -33,6 +33,7 @@
 | setLoadingImage           | 设置图片加载时图片 |
 | setLoadFailImage          | 设置图片加载失败时图片 |
 | setRspCheckInterceptor    | 设置处理网络请求响应数据方法 |
+| setApiQueryCacheMode      | 设置查询缓存模式 0=不进行缓存,1=无网络时从缓存中获取数据|
 
 ## 快速实现列表
 
@@ -41,32 +42,27 @@ https://github.com/aii1991/AndroidRapidDev/blob/master/app/gif/test.gif)
 
 ```java
   public class MainVM extends PagingVM<ImageBean>{
-    private RxAppCompatActivity mRxActivity;
-
-    public MainVM(RxAppCompatActivity rxActivity){
-        mRxActivity = rxActivity;
-    }
-
-    public ReplyCommand<Integer> mItemClickListener = new ReplyCommand<>((position) -> Toast.makeText(mRxActivity,"click position => "+ position,Toast.LENGTH_LONG).show());
-
-    @Override
-    public IPagingService<ImageBean> getPagingService() {
-        return (page, pageSize, onSuccess, onError, onComplete) ->
-                RetrofitManager
-                        .getInstance()
-                        .createReq(MainRepo.class)
-                        .getListImage(page,pageSize)
-                        .compose(mRxActivity.bindToLifecycle())
-                        .compose(TransformerHelper.observableToMainThreadTransformer())
-                        .map(new TransformHttpDataFunc<>())
-                        .subscribe(onSuccess,onError,onComplete);
-    }
-
-    @Override
-    public int getVariableId() {
-        return BR.imageBean;
-    }
-
+      private ImageRepository mImageRepository;
+  
+      public MainVM(BaseActivity rxActivity){
+          mImageRepository = ImageRepository.create(rxActivity);
+      }
+  
+      public ReplyCommand<Integer> mItemClickListener = new ReplyCommand<>((position) -> Toast.makeText(MyApplication.mInstance,"click position => "+ position,Toast.LENGTH_LONG).show());
+  
+      @Override
+      public IPagingService<ImageBean> getPagingService() {
+          return (page, pageSize, onSuccess, onError, onComplete) ->
+                  mImageRepository
+                          .getImageList(page,pageSize)
+                          .subscribe(onSuccess,onError,onComplete);
+      }
+  
+      @Override
+      public int getVariableId() {
+          return BR.imageBean;
+      }
+  
   }
 ```
 

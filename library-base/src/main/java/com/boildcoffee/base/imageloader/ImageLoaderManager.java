@@ -25,10 +25,10 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 public class ImageLoaderManager {
     private ImageLoaderManager(){}
     private static ImageLoaderManager mInstance;
-    private int mLoadingImgRes = BFConfig.getInstance().getConfig().getLoadingImage();
-    private int mErrorImgRes = BFConfig.getInstance().getConfig().getLoadFailImage();
-//    private int mAvatarImgRes = R.mipmap.user_photo;
-    private int mAvatarImgRes = BFConfig.getInstance().getConfig().getLoadingImage();
+    private int mLoadingImgRes = BFConfig.INSTANCE.getConfig().getLoadingImage();
+    private int mErrorImgRes = BFConfig.INSTANCE.getConfig().getLoadFailImage();
+    //    private int mAvatarImgRes = R.mipmap.user_photo;
+    private int mAvatarImgRes = BFConfig.INSTANCE.getConfig().getLoadingImage();
 
     private RequestOptions mRequestOptions;
 
@@ -48,7 +48,7 @@ public class ImageLoaderManager {
     }
 
     public ViewTarget loadImg(Context context,String url, String thumbnailUrl, ImageView imageView){
-         return loadImg(GlideApp.with(context),url,thumbnailUrl,null).into(imageView);
+        return loadImg(GlideApp.with(context),url,thumbnailUrl,null).into(imageView);
     }
 
     public RequestBuilder loadImg(GlideRequests glideRequests,String url,String thumbnailUrl,RequestListener requestListener){

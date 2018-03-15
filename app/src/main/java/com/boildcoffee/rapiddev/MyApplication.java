@@ -13,7 +13,8 @@ public class MyApplication extends BaseApplication{
     @Override
     public void onCreate() {
         super.onCreate();
-        BFConfig.getInstance().init(new BaseConfig.Builder()
+        BFConfig.INSTANCE.init(new BaseConfig.Builder()
+                .setApiQueryCacheMode(BaseConfig.CacheMode.NETWORK_ELSE_CACHE)
                 .setBaseUrl("http://gank.io/")
                 .setDebug(true).build());
     }

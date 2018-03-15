@@ -1,6 +1,5 @@
-package com.boildcoffee.base.service;
+package com.boildcoffee.base.paging;
 
-import com.boildcoffee.base.network.exception.HttpException;
 import com.boildcoffee.base.network.rx.HttpErrConsumer;
 
 import java.util.List;

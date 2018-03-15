@@ -1,12 +1,12 @@
 project.ext{
     _app = [
-        compileSdkVersion : 26,
-        buildToolsVersion : '26.0.2',
+            compileSdkVersion : 26,
+            buildToolsVersion : '26.0.2',
 
-        minSdkVersion : 15,
-        targetSdkVersion : 26,
-        versionCode : 1,
-        versionName : "1.0"
+            minSdkVersion : 15,
+            targetSdkVersion : 26,
+            versionCode : 1,
+            versionName : "1.0"
     ]
 
     def supportLibraryVersion = "26.1.0"
@@ -17,6 +17,13 @@ project.ext{
             design: "com.android.support:design:$supportLibraryVersion",
             cardview: "com.android.support:cardview-v7:$supportLibraryVersion",
             constraint: "com.android.support.constraint:constraint-layout:1.0.2"
+    ]
+
+    _components = [
+            room: "android.arch.persistence.room:runtime:1.0.0",
+            room_rx_feature: "android.arch.persistence.room:rxjava2:1.0.0",
+            room_annotation_processor: "android.arch.persistence.room:compiler:1.0.0",
+            paging: "android.arch.paging:runtime:1.0.0-alpha6",
     ]
 
     _test = [

@@ -1,3 +1,6 @@
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.aii1991'
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation _support.appcompat

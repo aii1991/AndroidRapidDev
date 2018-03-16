@@ -82,11 +82,6 @@ https://github.com/aii1991/AndroidRapidDev/blob/master/app/gif/test.gif)
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mainVM = new MainVM(this);
         binding.setMainVm(mainVM);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         mainVM.startGetData();
     }
   }

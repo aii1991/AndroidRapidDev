@@ -16,11 +16,6 @@ public class MainActivity extends BaseActivity {
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mainVM = new MainVM(this);
         binding.setMainVm(mainVM);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         mainVM.startGetData();
     }
 }

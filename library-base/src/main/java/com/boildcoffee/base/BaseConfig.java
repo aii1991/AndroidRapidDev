@@ -6,6 +6,8 @@ import com.boildcoffee.base.network.interceptor.RspCheckInterceptor;
 
 import java.io.IOException;
 
+import retrofit2.Converter;
+
 /**
  * @author zjh
  *         2017/12/22
@@ -36,6 +38,8 @@ final public class BaseConfig {
 
     private boolean debug = DEBUG;
     private int pageSize = PAGE_SIZE;
+
+    //retrofit
     private String baseUrl = BASE_URL;
     private int connectTimeout = CONNECT_TIMEOUT;
     private int readTimeout = READ_TIMEOUT;
@@ -45,6 +49,7 @@ final public class BaseConfig {
     private int loadingImage = LOADING_ERROR_IMG;
     private int loadFailImage = LOAD_FAIL_IMG;
     private RspCheckInterceptor RspCheckInterceptor;
+    private Converter.Factory converter;
     private int apiQueryCacheMode;
     private String dbName = DB_NAME;
 
@@ -119,6 +124,11 @@ final public class BaseConfig {
             return this;
         }
 
+        public Builder setConverter(Converter.Factory converter){
+            mBaseConfig.converter = converter;
+            return this;
+        }
+
         public BaseConfig build(){
             return mBaseConfig;
         }
@@ -182,5 +192,9 @@ final public class BaseConfig {
 
     public String getDbName() {
         return dbName;
+    }
+
+    public Converter.Factory getConverter() {
+        return converter;
     }
 }

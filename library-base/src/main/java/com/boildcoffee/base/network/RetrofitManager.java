@@ -69,12 +69,14 @@ public class RetrofitManager {
         SSLUtils.SSLParams sslParams = SSLUtils.getSslSocketFactory(null, null, null);//SSL配置
         builder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
         OkHttpClient client = builder.build();
-        mRetrofit = new Retrofit.Builder()
+        Retrofit.Builder retrofitBuilder =  new Retrofit.Builder()
                 .baseUrl(BFConfig.INSTANCE.getConfig().getBaseUrl())
-                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(client)
-                .build();
+                .client(client);
+        if (BFConfig.INSTANCE.getConfig().getConverter() == null){
+            retrofitBuilder.addConverterFactory(GsonConverterFactory.create());
+        }
+        mRetrofit = retrofitBuilder.build();
     }
 
     public void reLoad(){

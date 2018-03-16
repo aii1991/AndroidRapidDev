@@ -2,6 +2,13 @@
 
   致力于android快速开发,采用databind并集成目前流行的开发库如:retrofit,glid,rxjava等
 
+## 添加依赖
+```groovy
+    dependencies {
+        compile 'com.github.aii1991:AndroidRapidDev:v1.0.0'
+    }
+```
+
 ## 使用
 
 继承BaseApplication并在onCreate中初始化配置即可使用

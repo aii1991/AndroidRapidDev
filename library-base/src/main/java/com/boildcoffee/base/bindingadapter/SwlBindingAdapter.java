@@ -6,7 +6,7 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.v4.widget.SwipeRefreshLayout;
 
-import com.boildcoffee.base.viewmodel.PagingVM;
+import com.boildcoffee.base.paging.viewmodel.PagingVM;
 
 /**
  * @author zjh

@@ -1,4 +1,4 @@
-package com.boildcoffee.base.viewmodel;
+package com.boildcoffee.base.paging.viewmodel;
 
 /**
  * @author zjh

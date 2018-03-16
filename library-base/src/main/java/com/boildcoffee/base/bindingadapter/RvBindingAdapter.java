@@ -10,10 +10,9 @@ import android.view.View;
 
 import com.boildcoffee.base.adapter.DataBindAdapter;
 import com.boildcoffee.base.bindingadapter.common.ReplyCommand;
-import com.boildcoffee.base.viewmodel.PagingVM;
+import com.boildcoffee.base.paging.viewmodel.PagingVM;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.orhanobut.logger.Logger;
 
 /**
  * @author zjh

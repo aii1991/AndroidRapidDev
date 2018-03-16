@@ -1,4 +1,4 @@
-package com.boildcoffee.base.viewmodel;
+package com.boildcoffee.base.paging.viewmodel;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 

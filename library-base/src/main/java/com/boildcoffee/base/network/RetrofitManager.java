@@ -75,6 +75,8 @@ public class RetrofitManager {
                 .client(client);
         if (BFConfig.INSTANCE.getConfig().getConverter() == null){
             retrofitBuilder.addConverterFactory(GsonConverterFactory.create());
+        }else {
+            retrofitBuilder.addConverterFactory(BFConfig.INSTANCE.getConfig().getConverter());
         }
         mRetrofit = retrofitBuilder.build();
     }

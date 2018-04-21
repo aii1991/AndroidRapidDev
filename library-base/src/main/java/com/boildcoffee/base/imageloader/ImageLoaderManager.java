@@ -9,11 +9,16 @@ import android.widget.ImageView;
 
 import com.boildcoffee.base.BFConfig;
 import com.boildcoffee.base.BaseApplication;
+import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.bumptech.glide.signature.ObjectKey;
+
+import java.util.Map;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
@@ -54,6 +59,31 @@ public class ImageLoaderManager {
     public RequestBuilder loadImg(GlideRequests glideRequests,String url,String thumbnailUrl,RequestListener requestListener){
         GlideRequest requestBuilder = glideRequests
                 .load(url)
+                .apply(getRequestOptions())
+                .transition(withCrossFade());
+        if (requestListener != null){
+            requestBuilder.listener(requestListener);
+        }
+        if (TextUtils.isEmpty(thumbnailUrl)){
+            requestBuilder.thumbnail(glideRequests.load(thumbnailUrl));
+        }
+        return requestBuilder;
+    }
+
+    public RequestBuilder loadImg(GlideRequests glideRequests,String url,Map<String,String> headers,String thumbnailUrl,RequestListener requestListener){
+        GlideUrl glideUrl;
+        if (headers == null || headers.isEmpty()){
+            glideUrl = new GlideUrl(url);
+        }else {
+            LazyHeaders.Builder glideBuilder =  new LazyHeaders.Builder();
+            for (Map.Entry<String,String> header : headers.entrySet()){
+                glideBuilder.addHeader(header.getKey(),header.getValue());
+            }
+            glideUrl = new GlideUrl(url,glideBuilder.build());
+        }
+
+        GlideRequest requestBuilder = glideRequests
+                .load(glideUrl)
                 .apply(getRequestOptions())
                 .transition(withCrossFade());
         if (requestListener != null){

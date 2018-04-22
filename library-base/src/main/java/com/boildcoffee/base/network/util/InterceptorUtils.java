@@ -54,10 +54,15 @@ public class InterceptorUtils {
         return response.newBuilder().body(body).build();
     }
 
-    public synchronized static int getCacheKey(Request request){
+    public static int getCacheKey(Request request){
         String url = "";
         try {
-            url = URLDecoder.decode(request.url().toString(),"utf-8");
+            if (request.tag() instanceof Request){
+                url = ((Request)request.tag()).url().toString();
+            }else {
+                url = request.url().toString();
+            }
+            url = URLDecoder.decode(url,"utf-8");
             if (!url.substring(url.length() - 1).equals("/")){
                 url += "/";
             }

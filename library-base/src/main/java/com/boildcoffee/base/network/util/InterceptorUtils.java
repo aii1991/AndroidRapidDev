@@ -54,7 +54,7 @@ public class InterceptorUtils {
         return response.newBuilder().body(body).build();
     }
 
-    public static int getCacheUrlKey(Request request){
+    public synchronized static int getCacheKey(Request request){
         String url = "";
         try {
             url = URLDecoder.decode(request.url().toString(),"utf-8");

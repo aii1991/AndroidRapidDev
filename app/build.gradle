@@ -5,6 +5,7 @@ dependencies {
     testImplementation _test.junit
     androidTestImplementation _test.runner
     androidTestImplementation _test.espresso
-//    implementation project(':library-base')
-    compile 'com.github.aii1991:AndroidRapidDev:v1.0.3'
+    implementation project(':library-base')
+//    compile 'com.github.aii1991:AndroidRapidDev:v1.0.0'
+    implementation 'com.android.support:multidex:1.0.0'
 }

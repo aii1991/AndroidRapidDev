@@ -62,6 +62,7 @@ public class RvBindingAdapter {
 
     @BindingAdapter(value = "onItemClickListener")
     public static void addOnItemClickListener(final RecyclerView recyclerView, ReplyCommand<Integer> replyCommand){
+        if (replyCommand == null) return;
         recyclerView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {

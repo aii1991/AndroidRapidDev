@@ -72,6 +72,7 @@ public abstract class RspCheckInterceptor implements Interceptor{
         try {
             BaseApplication.mInstance.getAppDatabase().apiCacheDao().insert(apiCacheEntity);
         }catch (Exception e){
+            e.printStackTrace();
         }
 
     }

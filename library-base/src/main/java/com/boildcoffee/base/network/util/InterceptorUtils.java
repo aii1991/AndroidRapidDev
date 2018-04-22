@@ -58,7 +58,7 @@ public class InterceptorUtils {
         String url = "";
         try {
             url = URLDecoder.decode(request.url().toString(),"utf-8");
-            if (url.lastIndexOf("/") == -1){
+            if (!url.substring(url.length() - 1).equals("/")){
                 url += "/";
             }
         } catch (UnsupportedEncodingException e) {

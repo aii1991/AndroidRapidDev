@@ -4,6 +4,7 @@ import com.boildcoffee.base.BFConfig;
 import com.boildcoffee.base.BaseApplication;
 import com.boildcoffee.base.BaseConfig;
 import com.boildcoffee.base.network.db.entity.ApiCacheEntity;
+import com.boildcoffee.base.network.util.InterceptorUtils;
 import com.boildcoffee.base.util.NetworkUtils;
 
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class ReqCacheInterceptor implements Interceptor{
             int cacheMode = BFConfig.INSTANCE.getConfig().getApiQueryCacheMode();
             if (cacheMode == BaseConfig.CacheMode.CACHE_ELSE_NETWORK
                     || (cacheMode == BaseConfig.CacheMode.NETWORK_ELSE_CACHE && !NetworkUtils.isNetworkConnected(BaseApplication.mInstance))){
-                ApiCacheEntity apiCacheEntity = BaseApplication.mInstance.getAppDatabase().apiCacheDao().findByKey(URLDecoder.decode(request.url().toString(),"utf-8").hashCode());
+                ApiCacheEntity apiCacheEntity = BaseApplication.mInstance.getAppDatabase().apiCacheDao().findByKey(InterceptorUtils.getCacheUrlKey(request));
                 if (apiCacheEntity != null){
                     return new Response
                             .Builder()

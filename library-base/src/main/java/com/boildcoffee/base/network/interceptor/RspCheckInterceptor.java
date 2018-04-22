@@ -68,7 +68,7 @@ public abstract class RspCheckInterceptor implements Interceptor{
             return;
         }
         ApiCacheEntity apiCacheEntity = new ApiCacheEntity();
-        apiCacheEntity.setKey(URLDecoder.decode(request.url().toString(),"utf-8").hashCode());
+        apiCacheEntity.setKey(InterceptorUtils.getCacheUrlKey(request));
         apiCacheEntity.setUrl(request.url().toString());
         apiCacheEntity.setRspData(httpRsp);
         try {

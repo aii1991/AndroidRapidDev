@@ -2,9 +2,12 @@ package com.boildcoffee.base.network.util;
 
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.charset.Charset;
 
 import okhttp3.MediaType;
+import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -49,5 +52,18 @@ public class InterceptorUtils {
         MediaType contentType = response.body().contentType();
         ResponseBody body = ResponseBody.create(contentType,rspData);
         return response.newBuilder().body(body).build();
+    }
+
+    public static int getCacheUrlKey(Request request){
+        String url = "";
+        try {
+            url = URLDecoder.decode(request.url().toString(),"utf-8");
+            if (url.lastIndexOf("/") == -1){
+                url += "/";
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return url.hashCode();
     }
 }

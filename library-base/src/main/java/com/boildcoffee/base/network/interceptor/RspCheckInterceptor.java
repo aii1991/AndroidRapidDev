@@ -12,6 +12,7 @@ import com.boildcoffee.base.network.db.entity.ApiCacheEntity;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 import okhttp3.Interceptor;
@@ -67,7 +68,7 @@ public abstract class RspCheckInterceptor implements Interceptor{
             return;
         }
         ApiCacheEntity apiCacheEntity = new ApiCacheEntity();
-        apiCacheEntity.setKey(URLEncoder.encode(request.url().toString(),"utf-8").hashCode());
+        apiCacheEntity.setKey(URLDecoder.decode(request.url().toString(),"utf-8").hashCode());
         apiCacheEntity.setUrl(request.url().toString());
         apiCacheEntity.setRspData(httpRsp);
         try {

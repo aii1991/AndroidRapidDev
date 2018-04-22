@@ -5,7 +5,7 @@
 ## 添加依赖
 ```groovy
     dependencies {
-        compile 'com.github.aii1991:AndroidRapidDev:v1.0.0'
+        compile 'com.github.aii1991:AndroidRapidDev:v1.1.0'
     }
 ```
 

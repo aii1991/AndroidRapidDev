@@ -21,6 +21,8 @@ final public class BaseConfig {
     private final int CONNECT_TIMEOUT = 30; //网络连接超时时间(以秒为单位)
     private final int READ_TIMEOUT = 60; //网络读取超时时间(以秒为单位)
     private final int WRITE_TIMEOUT = 60; //网络写超时时间(以秒为单位)
+    private final long RSP_CACHE_TIME = System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 7); //最大缓存时间 7天
+
     //glide
     private  final int IMG_CACHE_SIZE = 100 * 1024 * 1024; //图片磁盘缓存大小
     private final String IMG_CACHE_NAME = "CACHE_IMG"; //图片缓存目录
@@ -52,6 +54,7 @@ final public class BaseConfig {
     private Converter.Factory converter;
     private int apiQueryCacheMode;
     private String dbName = DB_NAME;
+    private long rspCacheTime = RSP_CACHE_TIME;
 
     public static class Builder{
         BaseConfig mBaseConfig;
@@ -129,6 +132,16 @@ final public class BaseConfig {
             return this;
         }
 
+        /**
+         * 设置http响应数据缓存时间
+         * @param rspCacheTime 毫秒
+         * @return
+         */
+        public Builder setRspCacheTime(long rspCacheTime){
+            mBaseConfig.rspCacheTime = System.currentTimeMillis() + rspCacheTime;
+            return this;
+        }
+
         public BaseConfig build(){
             return mBaseConfig;
         }
@@ -196,5 +209,9 @@ final public class BaseConfig {
 
     public Converter.Factory getConverter() {
         return converter;
+    }
+
+    public long getRspCacheTime() {
+        return rspCacheTime;
     }
 }

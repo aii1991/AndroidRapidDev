@@ -1,5 +1,6 @@
 package com.boildcoffee.rapiddev;
 
+import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
@@ -19,6 +20,7 @@ public class MyApplication extends BaseApplication{
         BFConfig.INSTANCE.init(new BaseConfig.Builder()
                 .setApiQueryCacheMode(BaseConfig.CacheMode.CACHE_ELSE_NETWORK)
                 .setBaseUrl("http://gank.io/")
+                .setRspCacheTime(10 * 1000)
                 .setDebug(true).build());
     }
 

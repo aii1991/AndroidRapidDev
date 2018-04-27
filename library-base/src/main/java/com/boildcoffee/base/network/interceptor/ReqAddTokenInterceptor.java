@@ -1,8 +1,6 @@
 package com.boildcoffee.base.network.interceptor;
 
 
-import android.content.SharedPreferences;
-
 import com.boildcoffee.base.BaseApplication;
 
 import java.io.IOException;

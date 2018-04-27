@@ -9,7 +9,6 @@ import android.widget.ImageView;
 
 import com.boildcoffee.base.BFConfig;
 import com.boildcoffee.base.BaseApplication;
-import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;

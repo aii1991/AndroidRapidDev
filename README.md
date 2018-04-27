@@ -41,6 +41,7 @@
 | setLoadFailImage          | 设置图片加载失败时图片 |
 | setRspCheckInterceptor    | 设置处理网络请求响应数据方法 |
 | setApiQueryCacheMode      | 设置查询缓存模式 0=不进行缓存,1=无网络时从缓存中获取数据|
+| setRspCacheTime           | 设置缓存数据的缓存时间,默认7天    |
 
 ## 快速实现列表
 

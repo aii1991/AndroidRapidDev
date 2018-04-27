@@ -3,6 +3,7 @@ package com.boildcoffee.base.network.db.dao;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
@@ -14,15 +15,15 @@ import com.boildcoffee.base.network.db.entity.ApiCacheEntity;
  */
 @Dao
 public interface ApiCacheDao {
-    @Query("SELECT * FROM t_api_cache WHERE `key` = :key")
+    @Query("SELECT * FROM t_api_cache WHERE `key` = :key AND create_time < cache_time")
     ApiCacheEntity findByKey(int key);
 
-    @Insert
-    void insert(ApiCacheEntity cacheEntity);
+    @Insert(onConflict = OnConflictStrategy.FAIL)
+    long insert(ApiCacheEntity cacheEntity);
 
     @Delete
     void delete(ApiCacheEntity cacheEntity);
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.IGNORE)
     void update(ApiCacheEntity cacheEntity);
 }

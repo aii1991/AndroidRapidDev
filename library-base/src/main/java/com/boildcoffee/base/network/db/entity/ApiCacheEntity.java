@@ -18,6 +18,10 @@ public class ApiCacheEntity {
     private String rspData;
     @ColumnInfo(name = "url")
     private String url;
+    @ColumnInfo(name = "create_time")
+    private long createTime;
+    @ColumnInfo(name = "cache_time")
+    private long cacheTime;
 
     public String getUrl() {
         return url;
@@ -41,5 +45,21 @@ public class ApiCacheEntity {
 
     public void setRspData(String rspData) {
         this.rspData = rspData;
+    }
+
+    public long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(long createTime) {
+        this.createTime = createTime;
+    }
+
+    public long getCacheTime() {
+        return cacheTime;
+    }
+
+    public void setCacheTime(long cacheTime) {
+        this.cacheTime = cacheTime;
     }
 }

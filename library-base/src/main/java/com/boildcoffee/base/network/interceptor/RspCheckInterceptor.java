@@ -10,6 +10,7 @@ import com.boildcoffee.base.network.util.InterceptorUtils;
 import com.boildcoffee.base.network.db.entity.ApiCacheEntity;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
@@ -17,6 +18,7 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import okhttp3.internal.http.HttpMethod;
 
 /**
  * @author zjh
@@ -62,17 +64,26 @@ public abstract class RspCheckInterceptor implements Interceptor{
     }
 
     private void toCacheRsp(Request request,String httpRsp) throws IOException{
-        if (BFConfig.INSTANCE.getConfig().getApiQueryCacheMode() == BaseConfig.CacheMode.NO_CACHE){
+        BaseConfig config = BFConfig.INSTANCE.getConfig();
+        if (!request.method().equalsIgnoreCase("get")){
+            return;
+        }
+        if (config.getApiQueryCacheMode() == BaseConfig.CacheMode.NO_CACHE || config.getRspCacheTime() <= 0){
+            return;
+        }else if ("0".equals(request.header("is-cache"))){
             return;
         }
         ApiCacheEntity apiCacheEntity = new ApiCacheEntity();
         apiCacheEntity.setKey(InterceptorUtils.getCacheKey(request));
         apiCacheEntity.setUrl(request.url().toString());
         apiCacheEntity.setRspData(httpRsp);
+        apiCacheEntity.setCreateTime(System.currentTimeMillis());
+        apiCacheEntity.setCacheTime(BFConfig.INSTANCE.getConfig().getRspCacheTime());
         try {
             BaseApplication.mInstance.getAppDatabase().apiCacheDao().insert(apiCacheEntity);
         }catch (Exception e){
             e.printStackTrace();
+            BaseApplication.mInstance.getAppDatabase().apiCacheDao().update(apiCacheEntity);
         }
 
     }
